@@ -1,0 +1,28 @@
+<html layout:decorate="~{layout/layout}">
+<div layout:fragment="content" class="container">
+	<form th:action="@{|/list/search/${keyword}|}" method="get">
+		<span>
+			<label>검색어</label> <input type="text" name="keyword"/>
+		</span>
+		<input type="submit" value="검색">
+	</form>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+		<!-- List<Set<ToDoList>> -->
+			<tr th:each="list : ${lists}">
+				<span th:each="item : ${list}">
+					<td><a th:text="${item.listName}" th:href="@{|/${item.id}|}"> </a></td>
+					<td><a th:text="${item.listDesc}" th:href="@{|/${item.id}|}"> </a></td>					
+				</span>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+</html>

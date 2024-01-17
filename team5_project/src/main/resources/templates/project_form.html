@@ -1,0 +1,65 @@
+<html layout:decorate="~{layout/layout}">
+<div layout:fragment="content" class="container">
+	<form id="container" th:action="@{/project/create}" th:object="${projectDTO}" method="post">
+		<span>
+			<label>프로젝트 이름</label> <input type="text" th:name="projectName"/>
+		</span>
+		<div>
+			<label>email</label> <input type="email" th:name="userEmail"/>
+		</div>		
+		<div>
+			<label>email</label> <input type="email" th:name="userEmail"/>
+		</div>		
+		<div>
+			<label>email</label> <input type="email" th:name="userEmail"/>
+		</div>		
+		<div>
+			<label>email</label> <input type="email" th:name="userEmail"/>
+		</div>		
+		<div>
+			<label>email</label> <input type="email" th:name="userEmail"/>
+		</div>		
+		<div>
+			<label>email</label> <input type="email" th:name="userEmail"/>
+		</div>		
+		<div>
+			<label>email</label> <input type="email" th:name="userEmail"/>
+		</div>		
+		<div>
+			<label>email</label> <input type="email" th:name="userEmail"/>
+		</div>		
+		<div>
+			<label>email</label> <input type="email" th:name="userEmail"/>
+		</div>		
+
+
+		<input type="submit" value="완료">
+	</form>
+
+<script>
+    function addDiv() {
+        // 새로운 div 요소 생성
+        var newDiv = document.createElement("div");
+        
+        // div에 내용 추가 (원하는 내용으로 변경 가능)
+        newDiv.innerHTML = "<label>email</label> <input type='email' th:name='userEmail'/>";
+        
+        // container에 새로운 div 추가
+        document.getElementById("container").appendChild(newDiv);
+    }
+    
+    function removeDiv() {
+        var container = document.getElementById('container');
+        var dynamicDivs = container.querySelectorAll('div');
+        
+        // 마지막으로 추가된 div를 제거
+        if (dynamicDivs.length > 0) {
+            var lastDiv = dynamicDivs[dynamicDivs.length - 1];
+            container.removeChild(lastDiv);
+        }
+    }
+</script>
+
+</div>
+
+</html>

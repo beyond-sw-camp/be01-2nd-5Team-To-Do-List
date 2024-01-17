@@ -1,0 +1,217 @@
+<html layout:decorate="~{layout/layout}">
+<div layout:fragment="content" class="container">
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="item : ${lists}">
+				<td><a th:text="${item.listName}" th:href="@{|/${item.id}|}">
+				</a></td>
+				<td th:text="${item.listDesc}"></td>
+				<td th:text="${item.endDate}"></td>
+				<td th:text="${item.categoryName.categoryName}"></td>
+				<td th:text="'좋아요 : ' + ${item.likeUsers.size()}"></td>
+				<td>
+					<button th:attr="data-list-id=${item.id}"
+						onclick="toggleEditList(this)">수정</button>
+					<div th:id="'editList'+${item.id}">
+						<form th:action="@{/list/update}" th:object="${listDTO}"
+							method="post">
+							<input type="hidden" name="id" th:value="${item.id}" />
+							<div>
+								<label>제목</label> <input type="text" th:name="listName"
+									th:value="${item.listName}" />
+							</div>
+							<div>
+								<label>설명</label> <input type="text" th:name="listDesc"
+									th:value="${item.listDesc}" />
+							</div>
+							<div>
+								<label>마감</label> <input type="datetime-local" th:name="endDate"
+									th:value="${item.endDate}" />
+							</div>
+							<div>
+								<label>카테고리</label> <input type="text" th:name="category"
+									th:value="${item.categoryName.categoryName}" />
+							</div>
+							<input type="submit" value="수정하기">
+						</form>
+					</div>
+				</td>
+				<td>
+					<form th:action="@{/list/delete}" method="post">
+						<input type="hidden" name="id" th:value="${item.id}" /> <input
+							type="submit" value="삭제">
+					</form>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<thead>
+		<tr>
+			<th>작성자</th>
+			<th>내용</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="reply : ${replys}">
+			</br>
+			<td th:text="${reply.user.username}"></td>
+			<td th:text="${reply.content}"></td>
+			<td th:text="'좋아요 : ' + ${reply.likeUsers.size()}"></td>
+			
+	 		<td th:each="type : ${emotionReply[reply.id]}">감정 : 
+				<span th:text="${type.emotion.name}"/>
+			</td>
+
+			<td>
+				<button th:attr="data-reply-id=${reply.id}"
+					onclick="toggleEditReply(this)">수정</button>
+				<div th:id="'editReply'+${reply.id}">
+					<form th:action="@{|/${listId}/reply/${reply.id}/update|}"
+						th:object="${replyDTO}" method="post">
+						<div>
+							<label>내용</label> <input type="text" th:field="*{content}"
+								th:value="${reply.content}" />
+						</div>
+						<input type="submit" value="수정하기">
+					</form>
+				</div>
+
+			</td>
+			<td>
+				<form th:action="@{|/${listId}/reply/${reply.id}/delete|}"
+					method="post">
+					<input type="submit" value="삭제">
+				</form>
+			</td>
+			<td>
+				<form th:action="@{|/${listId}/like/reply/${reply.id}|}"
+					method="post">
+					<input type="submit" value="좋아요">
+				</form>
+			</td>
+			<td>
+				<form th:action="@{|/${listId}/emotion/reply/${reply.id}|}" th:object="${emotionDTO}"
+					method="post">
+					<div th:each="type : ${emotionList}">
+						<label> <input type="radio" th:field="${emotionDTO.name}"
+							th:value="${type.name}"> <span th:text="${type.name}"></span>
+						</label>
+					</div>
+					<input type="submit" value="감정 표현">
+				</form>
+			</td>
+		</tr>
+	</tbody>
+	<!-- 바꿀거 "/{listId}/reply/create" -->
+<button onclick="toggleAddList()">일정 등록</button>
+				<div id="addList">
+		<form th:action="@{/{listId}/list/create(listId=${listId})}"
+						th:object="${listDTO}" method="post">
+			<!--	        <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+-->
+			<input type="hidden" name="project" th:value="${project.id}">
+			<div>
+				<label>제목</label> <input type="text" th:field="*{listName}">
+			</div>
+			<div>
+				<label>설명</label> <input type="text" th:field="*{listDesc}">
+			</div>
+			<div>
+				<label>마감</label> <input type="datetime-local" th:field="*{endDate}">
+			</div>
+			<div>
+				<label>카테고리</label> <input type="text" th:field="*{category}">
+			</div>
+			<input type="submit" value="저장하기">
+		</form>
+	</div>
+
+
+	<button onclick="toggleAddReply()">댓글 등록</button>
+	<div id="addReply">
+		<form th:action="@{/{listId}/reply/create(listId=${listId})}"
+						th:object="${replyDTO}" method="post">
+			<div>
+				<label>내용</label> <input type="text" th:field="*{content}">
+			</div>
+			<input type="submit" value="저장하기">
+		</form>
+	</div>
+	<div>
+		<form th:action="@{|/${listId}/like|}" method="post">
+			<input type="submit" value="리스트 좋아요">
+		</form>
+	</div>
+	<form th:action="@{|/${listId}/emotion|}" th:object="${emotionDTO}"
+					method="post">
+		<div th:each="type : ${emotionList}">
+			<label> <input type="radio" th:field="${emotionDTO.name}"
+							th:value="${type.name}"> <span th:text="${type.name}"></span>
+			</label>
+		</div>
+		<input type="submit" value="감정표현">
+	</form>
+
+	<div th:text="'좋아요 : ' + ${list.likeUsers.size()}"></div>
+	<span>감정 : <span th:each="type : ${emotion}"> <span
+						th:text="${type.emotion.name}" />
+			</span>
+			
+			<script>
+				function toggleAddList() {
+					var form = document.getElementById('addList');
+
+					// 현재 상태에 따라 보이기/숨기기를 토글
+					if (form.style.display === 'none') {
+						form.style.display = 'block';
+					} else {
+						form.style.display = 'none';
+					}
+				}
+
+				function toggleEditList(button) {
+					var listId = button.getAttribute('data-list-id');
+					var form = document.getElementById('editList' + listId);
+
+					// 현재 상태에 따라 보이기/숨기기를 토글
+					if (form.style.display === 'none') {
+						form.style.display = 'block';
+					} else {
+						form.style.display = 'none';
+					}
+				}
+
+				function toggleAddReply() {
+					var form = document.getElementById('addReply');
+
+					// 현재 상태에 따라 보이기/숨기기를 토글
+					if (form.style.display === 'none') {
+						form.style.display = 'block';
+					} else {
+						form.style.display = 'none';
+					}
+				}
+
+				function toggleEditReply(button) {
+					var replyId = button.getAttribute('data-reply-id');
+					var form = document.getElementById('editReply' + replyId);
+
+					// 현재 상태에 따라 보이기/숨기기를 토글
+					if (form.style.display === 'none') {
+						form.style.display = 'block';
+					} else {
+						form.style.display = 'none';
+					}
+				}
+			</script>
+
+			</div>
+
+</html>

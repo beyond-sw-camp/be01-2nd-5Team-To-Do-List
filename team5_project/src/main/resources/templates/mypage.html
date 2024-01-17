@@ -1,0 +1,45 @@
+<html layout:decorate="~{layout/layout}">
+<div layout:fragment="content" class="container my-3">
+	<form th:action="@{/user/update}" th:object="${listDTO}" method="post">
+		<div>
+			<label>닉네임</label> <input type="text" th:name="nickname"
+				th:value="${user.nickname}" />
+		</div>
+		<div>
+			<label>email</label> <input type="email" th:name="email"
+				th:value="${user.email}" />
+		</div>
+		<div>
+			<label>password</label> <input type="password" th:name="password" />
+		</div>
+		<input type="submit" value="수정하기">
+	</form>
+	<form th:action="@{/user/delete}" method="post">
+		<input type="submit" value="삭제하기">
+	</form>
+<table>
+	<thead>
+		<tr>
+			<th>프로젝트명</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="item : ${invite}">
+			<td th:text="${item.project.projectName}"></td>
+			<td>
+				<form th:action="@{/user/invite/accept}" method="post">
+					<input type="hidden" name="projectId" th:value="${item.id}">
+					<input type="submit" value="승인">
+				</form>
+			</td>
+			<td>
+				<form th:action="@{/user/invite/reject}" method="post">
+					<input type="hidden" name="projectId" th:value="${item.id}">
+					<input type="submit" value="거절">
+				</form>
+			</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+</html>

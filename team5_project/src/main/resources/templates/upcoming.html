@@ -1,0 +1,110 @@
+<html layout:decorate="~{layout/layout}">
+<div layout:fragment="content" class="container">
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="item : ${lists}">
+				<td><a th:text="${item.listName}" th:href="@{|/${item.id}|}"> </a></td>
+
+				<td th:text="${item.listName}"></td>
+				<td th:text="${item.listDesc}"></td>
+				<td th:text="${item.endDate}"></td>
+				<td th:text="${item.categoryName.categoryName}"></td>
+				<td th:text="'좋아요 : ' + ${item.likeUsers.size()}"></td>
+				
+				<td>
+					<button th:attr="data-list-id=${item.id}" onclick="toggleEditList(this)">수정</button>
+					<div th:id="'editList'+${item.id}">
+						<form th:action="@{/upcoming/list/update}" th:object="${listDTO}" method="post">
+							<!--	        <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+-->
+							<input type="hidden" name="id" th:value="${item.id}" />
+							<div>
+								<label>제목</label>
+								<input type="text" th:name="listName" th:value="${item.listName}" />
+							</div>
+							<div>
+								<label>설명</label>
+								<input type="text" th:name="listDesc" th:value="${item.listDesc}" />
+							</div>
+							<div>
+								<label>마감</label>
+								<input type="datetime-local" th:name="endDate" th:value="${item.endDate}" />
+							</div>
+							<div>
+								<label>카테고리</label>
+								<input type="text" th:name="category" th:value="${item.categoryName.categoryName}" />
+							</div>
+							<input type="submit" value="수정하기">
+						</form>
+					</div>
+				</td>
+				<td>
+					<form th:action="@{/upcoming/list/delete}" method="post">
+							<input type="hidden" name="id" th:value="${item.id}" />
+							<input type="submit" value="삭제">
+					</form>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+
+	<button onclick="toggleAddList()">일정 등록</button>
+	<div id="addList">
+		<form th:action="@{/upcoming/list/create}" th:object="${listDTO}" method="post">
+			<!--	        <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+-->
+			<div>
+				<label>제목</label>
+				<input type="text" th:field="*{listName}">
+			</div>
+			<div>
+				<label>설명</label>
+				<input type="text" th:field="*{listDesc}">
+			</div>
+			<div>
+				<label>마감</label>
+				<input type="datetime-local" th:field="*{endDate}">
+			</div>
+			<div>
+				<label>카테고리</label>
+				<input type="text" th:field="*{category}">
+			</div>
+			<input type="submit" value="저장하기">
+		</form>
+	</div>
+	<script>
+		function toggleAddList() {
+			var form = document.getElementById('addList');
+
+			// 현재 상태에 따라 보이기/숨기기를 토글
+			if (form.style.display === 'none') {
+				form.style.display = 'block';
+			} else {
+				form.style.display = 'none';
+			}
+		}
+
+
+		function toggleEditList(button) {
+			var listId = button.getAttribute('data-list-id');
+			var form = document.getElementById('editList' + listId);
+
+			// 현재 상태에 따라 보이기/숨기기를 토글
+			if (form.style.display === 'none') {
+				form.style.display = 'block';
+			} else {
+				form.style.display = 'none';
+			}
+		}
+	</script>
+
+</div>
+
+</html>
