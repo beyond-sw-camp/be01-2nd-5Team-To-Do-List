@@ -29,3 +29,7 @@ https://github.com/minu1215/TODOLIST_5team
  - 다른 회원들의 이메일로 프로젝트 일정에 초대가 가능하여야한다.
  - 프로젝트 일정들의 리스트를 볼 수 있어야 한다.
 ```
+
+# ERD
+
+![todolist_최종_erd](https://github.com/beyond-sw-camp/be01-2nd-5Team-To-Do-List/assets/44054359/f87b92bd-7909-4805-9046-3a55ef13c801)
