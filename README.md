@@ -4,6 +4,12 @@
 ## Git 주소
 https://github.com/minu1215/TODOLIST_5team
 
+# How to use
+
+```
+$ cd team5_project
+$ docker compose up
+```
 
 # 📒프로젝트 소개
 - 이 프로젝트는 TodoList 플랫폼의 백엔드를 개발하여 사용자가 글을 작성, 수정, 삭제하고 댓글 및 감정표현을 추가할 수 있으며, 프로젝트를 생성하여 다수의 인원이 함께 일정을 공유하는 서비스를 제공하는 것을 목표로 합니다.
