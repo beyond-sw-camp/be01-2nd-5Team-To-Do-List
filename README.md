@@ -30,9 +30,21 @@ https://github.com/minu1215/TODOLIST_5team
  - 프로젝트 일정들의 리스트를 볼 수 있어야 한다.
 ```
 
+# 유스케이스 다이어그램
+
+![6](https://github.com/beyond-sw-camp/be01-2nd-5Team-To-Do-List/assets/44054359/0b27a7c9-c55d-41a8-b562-871c6c67e4ab)
+
+# 플로우 차트
+
+![5](https://github.com/beyond-sw-camp/be01-2nd-5Team-To-Do-List/assets/44054359/f6248bb8-ba02-4f5a-8bb2-2a1d27f21c10)
+
 # ERD
 
 ![todolist_최종_erd](https://github.com/beyond-sw-camp/be01-2nd-5Team-To-Do-List/assets/44054359/f87b92bd-7909-4805-9046-3a55ef13c801)
+
+# 시스템 구성도
+
+![3](https://github.com/beyond-sw-camp/be01-2nd-5Team-To-Do-List/assets/44054359/c2ef7a30-d70d-4f6d-896f-639ecf00ee85)
 
 # JWT
 
