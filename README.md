@@ -33,3 +33,8 @@ https://github.com/minu1215/TODOLIST_5team
 # ERD
 
 ![todolist_최종_erd](https://github.com/beyond-sw-camp/be01-2nd-5Team-To-Do-List/assets/44054359/f87b92bd-7909-4805-9046-3a55ef13c801)
+
+# JWT
+
+![getJWTToken](https://github.com/beyond-sw-camp/be01-2nd-5Team-To-Do-List/assets/44054359/212fb294-5e46-41ed-a86f-e833a2dfe2c0)
+
